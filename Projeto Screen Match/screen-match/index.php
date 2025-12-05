@@ -1,60 +1,50 @@
 <?php
 
-require __DIR__ . "/src/funcoes.php";
+require 'autoload.php';
 
-echo "Bem-vindo(a) ao screen match!\n";
-
-$nomeFilme = "Top Gun - Maverick";
-
-$anoLancamento = 2022;
-
-$quantidadeDeNotas = $argc - 1;
-$notas = [];
-
-for ($contador = 1; $contador < $argc; $contador++) {
-    $notas[] = (float) $argv[$contador];
-}
-
-$notaFilme = array_sum($notas) / $quantidadeDeNotas;
-$planoPrime = true;
-
-$incluidoNoPlano = incluidoNoPlano($planoPrime, $anoLancamento);
-
-echo "Nome do filme: " . $nomeFilme . "\n";
-echo "Nota do filme: $notaFilme\n";
-echo "Ano de lançamento: $anoLancamento\n";
-
-exibeMensagemLancamento($anoLancamento);
-
-$genero = match ($nomeFilme) {
-    "Top Gun - Maverick" => "ação",
-    "Thor: Ragnarok" => "super-herói",
-    "Se beber não case" => "comédia",
-    default => "gênero desconhecido",
+use ScreenMatch\Modelo\{
+    Filme, Episodio, Serie, Genero
+};
+use ScreenMatch\Calculos\{
+    CalculadoraDeMaratona, ConversorNotaEstrela
 };
 
-echo "O gênero do filme é: $genero\n";
+echo "Bem-vindo(a) ao ScreenMatch\n";
 
-$filme = criaFilme(
-    nota: 7.8,
-    genero: "super-herói",
-    ano: 2021,
-    nome: "Thor: Ragnarok",
+$filme = new Filme(
+    'Thor - Ragnarok',
+    2021,
+    Genero::SuperHeroi,
+    180,
 );
 
-echo $filme["ano"];
+$filme->avalia(10);
+$filme->avalia(10);
+$filme->avalia(5);
+$filme->avalia(5);
 
-var_dump($notas);
-sort($notas);
-var_dump($notas);
-$menorNota = min($notas);
-var_dump($menorNota);
+var_dump($filme);
 
-var_dump($filme['nome']);
-$posicaoDoisPontos = strpos($filme['nome'], ':');
-var_dump($posicaoDoisPontos);
+echo $filme->media() . "\n";
 
-var_dump(substr($filme['nome'], 0, $posicaoDoisPontos));
+echo $filme->anoLancamento . "\n";
 
-$filmeComoStringJson = json_encode($filme);
-file_put_contents(__DIR__ . '/filme.json', $filmeComoStringJson);
+$serie = new Serie('Lost', 2007, Genero::Drama, 10, 20, 30);
+$episodio = new Episodio($serie, 'Episódio piloto', 1);
+
+echo $serie->anoLancamento . "\n";
+
+$serie->avalia(8);
+
+echo $serie->media() . "\n";
+
+$calculadora = new CalculadoraDeMaratona();
+$calculadora->inclui($filme);
+$calculadora->inclui($serie);
+$duracao = $calculadora->duracao();
+
+echo "Para essa maratona, você precisa de $duracao minutos\n";
+
+$conversor = new ConversorNotaEstrela();
+echo $conversor->converte($serie) . "\n";
+echo $conversor->converte($filme) . "\n";

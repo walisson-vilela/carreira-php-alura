@@ -1,19 +1,12 @@
 <?php
 
-    $filme =[
-        'nome' => $_POST['nome'],
-        'ano' => $_POST['ano'],
-        'nota' => $_POST['nota'],
-        'genero' => $_POST['genero'],
-      
-    ];
+$filme = [
+    'nome' => $_POST['nome'],
+    'anoLancamento' => $_POST['ano'],
+    'nota' => $_POST['nota'],
+    'genero' => $_POST['genero'],
+];
 
-    file_put_contents(
-        'filmes.json',
-        json_encode($filme) . PHP_EOL,
-        FILE_APPEND
-    );
+file_put_contents('filme.json', json_encode($filme));
 
-
-    header('Location: sucesso.php?nome=' . urlencode($filme['nome']));
-    exit;
+header('Location: /sucesso.php?filme=' . $filme['nome']);

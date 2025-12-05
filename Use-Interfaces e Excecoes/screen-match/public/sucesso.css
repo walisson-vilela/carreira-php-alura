@@ -1,0 +1,58 @@
+/* sucesso.css - estilos para a página de confirmação */
+:root{
+  --bg: #071022;
+  --card: #0f1b2a;
+  --muted: #9fb4c6;
+  --accent: #2dd4bf;
+  --text: #e6eef5;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #04202b 0%, #071022 70%);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+}
+
+.container{
+  width:100%;
+  max-width:680px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+  padding:2rem;
+  border-radius:12px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+}
+
+h1{
+  margin:0 0 0.5rem 0;
+  font-size:1.4rem;
+}
+
+.message{
+  color:var(--muted);
+  margin-bottom:1.5rem;
+}
+
+a.button, a.button:link, a.button:visited{
+  display:inline-block;
+  background:var(--accent);
+  color:#042022;
+  padding:0.6rem 1rem;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+a.button:hover{opacity:0.95}
+
+@media (max-width:520px){
+  .container{padding:1rem}
+  h1{font-size:1.2rem}
+}
